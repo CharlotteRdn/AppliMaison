@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
-import Task from './components/Task';
-import styles from "./assets/styles"
+import { KeyboardAvoidingView, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
+import Task from '../../Task';
+import styles from "../../../assets/styles"
 
 
 export default function Courses() {
@@ -18,7 +18,7 @@ export default function Courses() {
     let itemsCopy = [...taskItems];
     itemsCopy.splice(index, 1);
     setTaskItems(itemsCopy)
-    storeData(item)
+    storeData(index)
   }
 
   const storeData = async (value) => {
@@ -30,7 +30,7 @@ export default function Courses() {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.wrap}>
       {/* Added this scroll view to enable scrolling when list gets longer than the page */}
       <ScrollView
         contentContainerStyle={{
@@ -54,10 +54,8 @@ export default function Courses() {
             })
           }
         </View>
-      </View>
-        
+      </View>        
       </ScrollView>
-
       {/* Write a task */}
       {/* Uses a keyboard avoiding view which ensures the keyboard does not cover the items on screen */}
       <KeyboardAvoidingView 
@@ -70,8 +68,7 @@ export default function Courses() {
             <Text style={styles.addText}>+</Text>
           </View>
         </TouchableOpacity>
-      </KeyboardAvoidingView>
-      
+      </KeyboardAvoidingView>      
     </View>
   );
 }

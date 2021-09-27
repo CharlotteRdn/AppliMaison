@@ -1,18 +1,14 @@
 import React, {useState} from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
-import Task from './components/Task';
-import DropDownPicker from 'react-native-dropdown-picker';
-import styles from "./assets/styles"
+import { KeyboardAvoidingView, Text, View, SafeAreaView, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
+import Task from '../../Task';
+import SelectDropdown from 'react-native-select-dropdown'
+import styles from "../../../assets/styles"
 
 export default function Trucs() {
   const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    {label: 'Charly', value: 'Charly'},
-    {label: 'Jibé', value: 'Jibé'}
-  ]);
+  const users = ["Jibé", "Charly"]
+
   const handleAddTask = () => {
     Keyboard.dismiss();
     setTaskItems([...taskItems, task])
@@ -31,11 +27,11 @@ export default function Trucs() {
     let itemsCopy = [...taskItems];
     itemsCopy.splice(index, 1);
     setTaskItems(itemsCopy)
-    storeData(item)
+    storeData(index)
   }
   
   return (
-    <View style={styles.container}>
+    <View style={styles.wrap}>
       {/* Added this scroll view to enable scrolling when list gets longer than the page */}
       <ScrollView
         contentContainerStyle={{
@@ -46,28 +42,33 @@ export default function Trucs() {
       {/* Today's Tasks */}
       <View style={styles.tasksWrapper}>
         <Text style={styles.sectionTitle}>Trucs à faire</Text>
-        <View style={styles.items}>
           {/* This is where the tasks will go! */}
           {
             taskItems.map((item, index) => {
               return (
-                <TouchableOpacity key={index}  onPress={() => completeTask(index)}>
+                <TouchableOpacity key={index}  onPress={()  => completeTask(index)}>
                     <View>
                         <Task text={item}/>
-                        <DropDownPicker
-                            open={open}
-                            value={value}
-                            items={items}
-                            setOpen={setOpen}
-                            setValue={setValue}
-                            setItems={setItems}
-                        />
+                        <SelectDropdown
+                          data={users}
+                          onSelect={(selectedItem, index) => {
+                            console.log(selectedItem, index)
+                          }}
+                          buttonTextAfterSelection={(selectedItem, index) => {
+                            // text represented after item is selected
+                            // if data array is an array of objects then return selectedItem.property to render after item is selected
+                            return selectedItem
+                          }}
+                          rowTextForSelection={(item, index) => {
+                            // text represented for each item in dropdown
+                            // if data array is an array of objects then return item.property to represent item in dropdown
+                            return item
+                          }}/>
                     </View>                    
                 </TouchableOpacity>
               )
             })
           }
-        </View>
       </View>        
       </ScrollView>
 

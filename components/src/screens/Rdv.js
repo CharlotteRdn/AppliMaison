@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
-import Task from './components/Task';
+import { KeyboardAvoidingView, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
+import Task from '../../Task';
 import DropDownPicker from 'react-native-dropdown-picker';
-import styles from "./assets/styles"
+import styles from "../../../assets/styles"
 
 export default function Trucs() {
   const [task, setTask] = useState();

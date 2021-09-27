@@ -7,7 +7,7 @@ export default StyleSheet.create({
       backgroundColor: '#E8EAED',
     },
     tasksWrapper: {
-      paddingTop: 80,
+      paddingTop: 20,
       paddingHorizontal: 20,
     },
     sectionTitle: {
